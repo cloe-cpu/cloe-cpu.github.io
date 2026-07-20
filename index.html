@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cloedurand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #fdf6f2;
+    --blush: #fbe4ea;
+    --sakura: #f4a8bc;
+    --sakura-deep: #e57e9d;
+    --lavender: #c9a3d4;
+    --plum: #5b3a56;
+    --gold: #e3b57a;
+    --leaf: #9fc3a1;
+    --card-bg: rgba(255,255,255,0.72);
+    --card-border: rgba(255,255,255,0.9);
+    --link-bg: #ffffff;
+    --link-border: rgba(197,140,168,0.25);
+    --bio-color: #7a5b74;
+    --sub-color: #9a7f95;
+    --footer-color: #b298ac;
+    --bg-glow-1: #fbe4ea;
+    --bg-glow-2: #e9d7f0;
+    --transition-theme: background .5s ease, color .5s ease, border-color .5s ease, box-shadow .5s ease;
+  }
+
+  html.night{
+    --cream: #221a30;
+    --blush: #2e2140;
+    --plum: #f3e6f5;
+    --card-bg: rgba(40,28,58,0.72);
+    --card-border: rgba(201,163,212,0.25);
+    --link-bg: rgba(255,255,255,0.05);
+    --link-border: rgba(201,163,212,0.25);
+    --bio-color: #c9b3d4;
+    --sub-color: #9a86ab;
+    --footer-color: #7c6a8c;
+    --bg-glow-1: #3d2a55;
+    --bg-glow-2: #2a2440;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html,body{ height:100%; }
+
+  body{
+    min-height:100%;
+    background:
+      radial-gradient(circle at 15% 10%, var(--bg-glow-1) 0%, transparent 45%),
+      radial-gradient(circle at 85% 90%, var(--bg-glow-2) 0%, transparent 50%),
+      var(--cream);
+    font-family:'M PLUS Rounded 1c', sans-serif;
+    color:var(--plum);
+    overflow-x:hidden;
+    transition: var(--transition-theme);
+    cursor: none;
+  }
+
+  @media (hover: none){
+    body{ cursor:auto; }
+  }
+
+  body{
+    min-height:100vh;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:48px 20px 120px;
+    position:relative;
+    perspective: 1000px;
+  }
+
+  /* --- Falling sakura petals (signature element) --- */
+  .petals{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    overflow:hidden;
+  }
+  .petal{
+    position:absolute;
+    top:-10%;
+    width:16px;
+    height:16px;
+    opacity:.85;
+    animation-name: fall, sway;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+  }
+  .petal svg{ width:100%; height:100%; display:block; }
+
+  @keyframes fall{
+    to{ transform: translateY(115vh); }
+  }
+  @keyframes sway{
+    0%,100%{ margin-left:0; }
+    50%{ margin-left:40px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .petal{ animation: none; display:none; }
+  }
+
+  /* --- Card --- */
+  .card{
+    position:relative;
+    z-index:1;
+    width:100%;
+    max-width:420px;
+    background:var(--card-bg);
+    backdrop-filter: blur(6px);
+    border:1px solid var(--card-border);
+    border-radius:32px;
+    padding:44px 32px 36px;
+    box-shadow: 0 20px 60px -20px rgba(91,58,86,0.35), 0 0 0 1px rgba(244,168,188,0.15);
+    text-align:center;
+    transition: var(--transition-theme), transform .1s linear;
+    will-change: transform;
+  }
+
+  .branch{
+    width:120px;
+    margin:0 auto 6px;
+    display:block;
+  }
+
+  .avatar{
+    width:104px;
+    height:104px;
+    border-radius:50%;
+    margin:0 auto 18px;
+    background: linear-gradient(160deg, var(--sakura) 0%, var(--lavender) 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Klee One', serif;
+    font-size:40px;
+    color:#fff;
+    box-shadow: 0 8px 24px -6px rgba(229,126,157,0.6), inset 0 0 0 4px #fff;
+  }
+
+  h1{
+    font-family:'Klee One', serif;
+    font-weight:600;
+    font-size:30px;
+    letter-spacing:.5px;
+    color:var(--plum);
+    margin-bottom:6px;
+  }
+
+  h1 .flower{
+    display:inline-block;
+    font-size:20px;
+    transform: translateY(-2px);
+  }
+
+  .bio{
+    font-size:14.5px;
+    line-height:1.6;
+    color:var(--bio-color);
+    max-width:280px;
+    margin:0 auto 28px;
+    transition: var(--transition-theme);
+  }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:0 auto 24px;
+    max-width:200px;
+  }
+  .divider .line{
+    flex:1;
+    height:1px;
+    background: linear-gradient(90deg, transparent, var(--sakura), transparent);
+  }
+  .divider .bud{ font-size:12px; color:var(--sakura-deep); }
+
+  .links{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .link{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:13px 18px;
+    border-radius:18px;
+    text-decoration:none;
+    color:var(--plum);
+    background:var(--link-bg);
+    border:1.5px solid var(--link-border);
+    font-weight:500;
+    font-size:15px;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .3s ease;
+    overflow:hidden;
+    text-align:left;
+    cursor:none;
+  }
+
+  .link:focus-visible{
+    outline: 3px solid var(--sakura-deep);
+    outline-offset: 2px;
+  }
+
+  .link:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -10px rgba(229,126,157,0.55);
+    border-color: var(--sakura);
+  }
+
+  .link .icon{
+    width:34px;
+    height:34px;
+    min-width:34px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+  }
+  .link .icon svg{ width:18px; height:18px; }
+
+  .link .label{ flex:1; }
+  .link .label .name{ display:block; font-weight:700; font-size:14.5px; }
+  .link .label .sub{ display:block; font-size:11.5px; color:var(--sub-color); font-weight:400; transition: var(--transition-theme); }
+
+  .link .petal-mark{
+    font-size:13px;
+    opacity:.55;
+  }
+
+  .icon.discord{ background:#8a7fd6; }
+  .icon.youtube{ background:#e5768c; }
+  .icon.twitch{ background:#b391d4; }
+  .icon.spotify{ background:#8fbf9a; }
+  .icon.github{ background:#6b5a63; }
+  .icon.roblox{ background:#e3b57a; }
+
+  footer{
+    margin-top:28px;
+    font-size:11.5px;
+    color:var(--footer-color);
+    letter-spacing:.5px;
+    transition: var(--transition-theme);
+  }
+
+  @media (max-width:380px){
+    .card{ padding:36px 22px 28px; border-radius:26px; }
+    h1{ font-size:26px; }
+  }
+
+  /* --- Discord pseudo copy button --- */
+  .link.discord-btn{ cursor:none; }
+  .copy-flash{
+    position:absolute;
+    right:16px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:11px;
+    color:var(--sakura-deep);
+    font-weight:700;
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  .copy-flash.show{ opacity:1; }
+
+  /* --- Floating control buttons --- */
+  .controls{
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:20;
+    display:flex;
+    gap:10px;
+  }
+  .ctrl-btn{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    border:1.5px solid var(--card-border);
+    background:var(--card-bg);
+    backdrop-filter: blur(6px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    cursor:none;
+    transition: var(--transition-theme), transform .18s ease;
+    box-shadow: 0 6px 18px -8px rgba(91,58,86,0.3);
+  }
+  .ctrl-btn:hover{ transform: scale(1.08); }
+  .ctrl-btn:focus-visible{ outline:3px solid var(--sakura-deep); outline-offset:2px; }
+
+  /* --- Stars for night mode --- */
+  .stars{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .6s ease;
+  }
+  html.night .stars{ opacity:1; }
+  .star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:#f3e6f5;
+    border-radius:50%;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity:.2; }
+    50%{ opacity:1; }
+  }
+
+  /* --- Custom cursor --- */
+  .cursor{
+    position:fixed;
+    top:0; left:0;
+    width:22px;
+    height:22px;
+    pointer-events:none;
+    z-index:9999;
+    transform: translate(-50%,-50%);
+    transition: opacity .2s ease;
+    will-change: transform;
+  }
+  .cursor svg{ width:100%; height:100%; display:block; }
+  @media (hover:none){ .cursor{ display:none; } }
+
+</style>
+</head>
+<body>
+
+<div class="petals" id="petals" aria-hidden="true"></div>
+<div class="stars" id="stars" aria-hidden="true"></div>
+<div class="cursor" id="customCursor" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none">
+    <path d="M12 2c1.5 2 1.5 4 0 6-1.5-2-1.5-4 0-6Zm0 14c1.5 2 1.5 4 0 6-1.5-2-1.5-4 0-6ZM2 12c2-1.5 4-1.5 6 0-2 1.5-4 1.5-6 0Zm14 0c2-1.5 4-1.5 6 0-2 1.5-4 1.5-6 0ZM5.6 5.6c2.1-.4 3.8.5 4.9 2.5-2.1.4-3.8-.5-4.9-2.5Zm7.9 7.9c2.1-.4 3.8.5 4.9 2.5-2.1.4-3.8-.5-4.9-2.5Zm4.9-7.9c-.4 2.1-1.5 3.8-2.5 4.9-.4-2.1.5-3.8 2.5-4.9ZM9.1 13.5c-.4 2.1-1.5 3.8-2.5 4.9-.4-2.1.5-3.8 2.5-4.9Z" fill="#e57e9d"/>
+  </svg>
+</div>
+
+<div class="controls">
+  <button class="ctrl-btn" id="themeToggle" type="button" aria-label="Changer de thème jour / nuit">🌙</button>
+</div>
+
+<main class="card">
+  <svg class="branch" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M0 30 Q 50 10 100 22 T 200 15" stroke="#c9a3d4" stroke-width="1.5" fill="none" opacity="0.6"/>
+    <g fill="#f4a8bc" opacity="0.9">
+      <circle cx="40" cy="20" r="4"/><circle cx="48" cy="16" r="4"/><circle cx="52" cy="24" r="4"/>
+      <circle cx="120" cy="19" r="3.5"/><circle cx="127" cy="24" r="3.5"/>
+      <circle cx="170" cy="14" r="4"/><circle cx="178" cy="19" r="4"/><circle cx="174" cy="10" r="4"/>
+    </g>
+  </svg>
+
+  <div class="avatar">花</div>
+
+  <h1><span class="flower">🌸</span> cloedurand <span class="flower">🌸</span></h1>
+  <p class="bio">bienvenue dans mon petit jardin ✨ retrouve-moi partout par ici</p>
+
+  <div class="divider"><span class="line"></span><span class="bud">✿</span><span class="line"></span></div>
+
+  <div class="links">
+
+    <button class="link discord-btn" type="button" id="discordCopy" aria-label="Copier le pseudo Discord cloedurand">
+      <span class="icon discord">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm9 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/><path d="M17.5 5.5c-1.2-.6-2.5-1-3.9-1.2l-.2.4c1.2.3 2.3.7 3.3 1.3-2.9-1.3-6.8-1.3-9.7 0 1-.6 2.1-1 3.3-1.3l-.2-.4c-1.4.2-2.7.6-3.9 1.2-2 3-2.5 6-2.3 8.9 1.4 1 2.7 1.6 4 2 .3-.5.6-1 .9-1.5-.5-.2-1-.4-1.4-.7.1-.1.2-.2.4-.3 2.8 1.3 5.9 1.3 8.7 0 .1.1.2.2.4.3-.4.3-.9.5-1.4.7.3.5.6 1 .9 1.5 1.3-.4 2.6-1 4-2 .3-3.4-.6-6.4-2.3-8.9Z"/></svg>
+      </span>
+      <span class="label"><span class="name">Discord</span><span class="sub">cloedurand · touche pour copier</span></span>
+      <span class="copy-flash" id="copyFlash">copié !</span>
+    </button>
+
+    <a class="link" href="https://www.youtube.com/channel/UCF6AgcAnBsr8XDHyyZKlZVw" target="_blank" rel="noopener">
+      <span class="icon youtube">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2s-.2-1.5-.8-2.1c-.8-.8-1.7-.8-2.1-.9C15.9 4 12 4 12 4h0s-3.9 0-6.7.2c-.4 0-1.3.1-2.1.9-.6.6-.8 2.1-.8 2.1S2.2 9 2.2 10.7v1.6C2.2 14 2.4 15.8 2.4 15.8s.2 1.5.8 2.1c.8.8 1.9.8 2.3.9 1.7.2 7.5.2 7.5.2s3.9 0 6.7-.2c.4 0 1.3-.1 2.1-.9.6-.6.8-2.1.8-2.1s.2-1.7.2-3.5v-1.6c0-1.7-.2-3.5-.2-3.5ZM9.8 14.5V8.9l5.4 2.8-5.4 2.8Z"/></svg>
+      </span>
+      <span class="label"><span class="name">YouTube</span><span class="sub">mes vidéos</span></span>
+      <span class="petal-mark">✿</span>
+    </a>
+
+    <a class="link" href="https://www.twitch.tv/cloe_durand" target="_blank" rel="noopener">
+      <span class="icon twitch">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3 3 6.5v13h5V21l3-1.5h3.5L19.5 15V3H4.5Zm13.5 11-3 3h-3l-2.5 2.5V17H6V4.5h12V14Z"/><path d="M15.5 7h1.5v4h-1.5V7Zm-4 0H13v4h-1.5V7Z"/></svg>
+      </span>
+      <span class="label"><span class="name">Twitch</span><span class="sub">mes lives</span></span>
+      <span class="petal-mark">✿</span>
+    </a>
+
+    <a class="link" href="https://open.spotify.com/user/31x6c2qdw7lhip4cqqjwhcvcetw4" target="_blank" rel="noopener">
+      <span class="icon spotify">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.4a.7.7 0 0 1-1 .2c-2.6-1.6-5.9-2-9.8-1.1a.7.7 0 1 1-.3-1.4c4.2-1 7.9-.5 10.8 1.3.4.2.5.7.3 1Zm1.2-2.8a.9.9 0 0 1-1.2.3c-3-1.8-7.5-2.4-11-1.3a.9.9 0 1 1-.6-1.7c4-1.2 9-.6 12.4 1.5.4.3.6.9.4 1.2Zm.1-2.9C14.5 8.6 9 8.4 5.7 9.4a1 1 0 1 1-.6-1.9c3.8-1.1 9.9-.9 13.8 1.4a1 1 0 1 1-1 1.8Z"/></svg>
+      </span>
+      <span class="label"><span class="name">Spotify</span><span class="sub">mes playlists</span></span>
+      <span class="petal-mark">✿</span>
+    </a>
+
+    <a class="link" href="https://github.com/cloe-cpu" target="_blank" rel="noopener">
+      <span class="icon github">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.1-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.5-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 4.9 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>
+      </span>
+      <span class="label"><span class="name">GitHub</span><span class="sub">mes projets</span></span>
+      <span class="petal-mark">✿</span>
+    </a>
+  </div>
+
+  <footer>fait avec ✿ pour cloedurand</footer>
+</main>
+
+<script>
+  // Generate falling sakura petals
+  const container = document.getElementById('petals');
+  const petalCount = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 14;
+  const petalSVG = `<svg viewBox="0 0 24 24"><path fill="#f4a8bc" d="M12 2c1.5 2 1.5 4 0 6-1.5-2-1.5-4 0-6Zm0 14c1.5 2 1.5 4 0 6-1.5-2-1.5-4 0-6ZM2 12c2-1.5 4-1.5 6 0-2 1.5-4 1.5-6 0Zm14 0c2-1.5 4-1.5 6 0-2 1.5-4 1.5-6 0ZM5.6 5.6c2.1-.4 3.8.5 4.9 2.5-2.1.4-3.8-.5-4.9-2.5Zm7.9 7.9c2.1-.4 3.8.5 4.9 2.5-2.1.4-3.8-.5-4.9-2.5Zm4.9-7.9c-.4 2.1-1.5 3.8-2.5 4.9-.4-2.1.5-3.8 2.5-4.9ZM9.1 13.5c-.4 2.1-1.5 3.8-2.5 4.9-.4-2.1.5-3.8 2.5-4.9Z"/></svg>`;
+
+  for (let i = 0; i < petalCount; i++) {
+    const el = document.createElement('div');
+    el.className = 'petal';
+    el.innerHTML = petalSVG;
+    const left = Math.random() * 100;
+    const duration = 9 + Math.random() * 8;
+    const swayDur = 3 + Math.random() * 3;
+    const delay = Math.random() * 10;
+    const size = 10 + Math.random() * 10;
+    el.style.left = left + 'vw';
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    el.style.animationDuration = duration + 's, ' + swayDur + 's';
+    el.style.animationDelay = -delay + 's, ' + (-delay) + 's';
+    el.style.opacity = 0.5 + Math.random() * 0.4;
+    container.appendChild(el);
+  }
+
+  // Generate twinkling stars for night mode
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 60; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.top = Math.random() * 100 + 'vh';
+    s.style.animationDelay = (-Math.random() * 3) + 's';
+    starsContainer.appendChild(s);
+  }
+
+  // --- Theme toggle (day / night) ---
+  const themeToggle = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  function setTheme(night) {
+    root.classList.toggle('night', night);
+    themeToggle.textContent = night ? '☀️' : '🌙';
+    themeToggle.setAttribute('aria-label', night ? 'Passer en thème jour' : 'Passer en thème nuit');
+  }
+  const prefersNight = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  setTheme(prefersNight);
+  themeToggle.addEventListener('click', () => setTheme(!root.classList.contains('night')));
+
+  // --- Custom cursor (petal / star) ---
+  const cursor = document.getElementById('customCursor');
+  const supportsHover = window.matchMedia('(hover: hover)').matches;
+  if (supportsHover) {
+    window.addEventListener('mousemove', (e) => {
+      cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+    });
+    document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+    document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; });
+  } else {
+    cursor.style.display = 'none';
+  }
+
+  // --- Parallax on scroll + mouse ---
+  const card = document.querySelector('.card');
+  let mouseX = 0, mouseY = 0, scrollY = 0;
+
+  function applyParallax() {
+    const tiltX = mouseY * 4;
+    const tiltY = mouseX * -4;
+    card.style.transform = `translateY(${scrollY * -0.06}px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+  }
+
+  if (supportsHover) {
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5);
+      mouseY = (e.clientY / window.innerHeight - 0.5);
+      applyParallax();
+    });
+  }
+  window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
+    applyParallax();
+  }, { passive: true });
+
+  // --- Petals react to mouse: gentle push away ---
+  if (supportsHover) {
+    window.addEventListener('mousemove', (e) => {
+      const petals = container.querySelectorAll('.petal');
+      petals.forEach((p) => {
+        const rect = p.getBoundingClientRect();
+        const dx = (rect.left + rect.width / 2) - e.clientX;
+        const dy = (rect.top + rect.height / 2) - e.clientY;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 80) {
+          const push = (80 - dist) / 80;
+          const angle = Math.atan2(dy, dx);
+          const offsetX = Math.cos(angle) * push * 30;
+          const offsetY = Math.sin(angle) * push * 30;
+          p.style.transition = 'translate .15s ease-out';
+          p.style.translate = `${offsetX}px ${offsetY}px`;
+        } else {
+          p.style.translate = '0px 0px';
+        }
+      });
+    });
+  }
+
+  // --- Ambient music (synthesized, no external file needed) ---
+  const musicToggle = document.getElementById('musicToggle');
+  let audioCtx = null;
+  let ambientNodes = null;
+  let playing = false;
+
+  function startAmbient() {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const master = audioCtx.createGain();
+    master.gain.value = 0;
+    master.connect(audioCtx.destination);
+    master.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 1.5);
+
+    const freqs = [261.6, 329.6, 392.0, 466.2]; // soft chord, C E G Bb-ish
+    const oscs = freqs.map((f, i) => {
+      const osc = audioCtx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = f;
+      const lfo = audioCtx.createOscillator();
+      lfo.frequency.value = 0.05 + i * 0.02;
+      const lfoGain = audioCtx.createGain();
+      lfoGain.gain.value = 3;
+      lfo.connect(lfoGain);
+      lfoGain.connect(osc.frequency);
+      const g = audioCtx.createGain();
+      g.gain.value = 0.25 / freqs.length;
+      osc.connect(g);
+      g.connect(master);
+      osc.start();
+      lfo.start();
+      return { osc, lfo };
+    });
+
+    ambientNodes = { master, oscs };
+  }
+
+  function stopAmbient() {
+    if (!ambientNodes) return;
+    const { master, oscs } = ambientNodes;
+    master.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.8);
+    setTimeout(() => {
+      oscs.forEach(({ osc, lfo }) => { osc.stop(); lfo.stop(); });
+      audioCtx.close();
+      audioCtx = null;
+      ambientNodes = null;
+    }, 900);
+  }
+
+  musicToggle.addEventListener('click', () => {
+    playing = !playing;
+    musicToggle.textContent = playing ? '❚❚' : '♪';
+    musicToggle.setAttribute('aria-label', playing ? 'Mettre en pause la musique' : 'Jouer la musique d\'ambiance');
+    if (playing) startAmbient(); else stopAmbient();
+  });
+
+  // --- Discord pseudo copy ---
+  const discordBtn = document.getElementById('discordCopy');
+  const copyFlash = document.getElementById('copyFlash');
+  discordBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText('cloedurand');
+    } catch (e) {
+      // clipboard API unavailable — fail silently, flash still confirms attempt
+    }
+    copyFlash.classList.add('show');
+    setTimeout(() => copyFlash.classList.remove('show'), 1400);
+  });
+</script>
+
+</body>
+</html>
