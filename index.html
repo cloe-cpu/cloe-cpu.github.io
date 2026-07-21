@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -259,7 +259,7 @@
     h1{ font-size:26px; }
   }
 
-  /* --- Discord pseudo copy button --- */
+  /* --- Discord username copy button --- */
   .link.discord-btn{ cursor:none; }
   .copy-flash{
     position:absolute;
@@ -352,7 +352,7 @@
 </div>
 
 <div class="controls">
-  <button class="ctrl-btn" id="themeToggle" type="button" aria-label="Changer de thème jour / nuit">🌙</button>
+  <button class="ctrl-btn" id="themeToggle" type="button" aria-label="Toggle light / dark theme">🌙</button>
 </div>
 
 <main class="card">
@@ -368,25 +368,25 @@
   <div class="avatar">花</div>
 
   <h1><span class="flower">🌸</span> cloedurand <span class="flower">🌸</span></h1>
-  <p class="bio">bienvenue dans mon petit jardin ✨ retrouve-moi partout par ici</p>
+  <p class="bio">welcome to my little garden ✨ find me everywhere below</p>
 
   <div class="divider"><span class="line"></span><span class="bud">✿</span><span class="line"></span></div>
 
   <div class="links">
 
-    <button class="link discord-btn" type="button" id="discordCopy" aria-label="Copier le pseudo Discord cloedurand">
+    <button class="link discord-btn" type="button" id="discordCopy" aria-label="Copy Discord username cloedurand">
       <span class="icon discord">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm9 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/><path d="M17.5 5.5c-1.2-.6-2.5-1-3.9-1.2l-.2.4c1.2.3 2.3.7 3.3 1.3-2.9-1.3-6.8-1.3-9.7 0 1-.6 2.1-1 3.3-1.3l-.2-.4c-1.4.2-2.7.6-3.9 1.2-2 3-2.5 6-2.3 8.9 1.4 1 2.7 1.6 4 2 .3-.5.6-1 .9-1.5-.5-.2-1-.4-1.4-.7.1-.1.2-.2.4-.3 2.8 1.3 5.9 1.3 8.7 0 .1.1.2.2.4.3-.4.3-.9.5-1.4.7.3.5.6 1 .9 1.5 1.3-.4 2.6-1 4-2 .3-3.4-.6-6.4-2.3-8.9Z"/></svg>
       </span>
-      <span class="label"><span class="name">Discord</span><span class="sub">cloedurand · touche pour copier</span></span>
-      <span class="copy-flash" id="copyFlash">copié !</span>
+      <span class="label"><span class="name">Discord</span><span class="sub">cloedurand · click to copy</span></span>
+      <span class="copy-flash" id="copyFlash">copied!</span>
     </button>
 
     <a class="link" href="https://www.youtube.com/channel/UCF6AgcAnBsr8XDHyyZKlZVw" target="_blank" rel="noopener">
       <span class="icon youtube">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2s-.2-1.5-.8-2.1c-.8-.8-1.7-.8-2.1-.9C15.9 4 12 4 12 4h0s-3.9 0-6.7.2c-.4 0-1.3.1-2.1.9-.6.6-.8 2.1-.8 2.1S2.2 9 2.2 10.7v1.6C2.2 14 2.4 15.8 2.4 15.8s.2 1.5.8 2.1c.8.8 1.9.8 2.3.9 1.7.2 7.5.2 7.5.2s3.9 0 6.7-.2c.4 0 1.3-.1 2.1-.9.6-.6.8-2.1.8-2.1s.2-1.7.2-3.5v-1.6c0-1.7-.2-3.5-.2-3.5ZM9.8 14.5V8.9l5.4 2.8-5.4 2.8Z"/></svg>
       </span>
-      <span class="label"><span class="name">YouTube</span><span class="sub">mes vidéos</span></span>
+      <span class="label"><span class="name">YouTube</span><span class="sub">my videos</span></span>
       <span class="petal-mark">✿</span>
     </a>
 
@@ -394,7 +394,7 @@
       <span class="icon twitch">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3 3 6.5v13h5V21l3-1.5h3.5L19.5 15V3H4.5Zm13.5 11-3 3h-3l-2.5 2.5V17H6V4.5h12V14Z"/><path d="M15.5 7h1.5v4h-1.5V7Zm-4 0H13v4h-1.5V7Z"/></svg>
       </span>
-      <span class="label"><span class="name">Twitch</span><span class="sub">mes lives</span></span>
+      <span class="label"><span class="name">Twitch</span><span class="sub">my streams</span></span>
       <span class="petal-mark">✿</span>
     </a>
 
@@ -402,7 +402,7 @@
       <span class="icon spotify">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.4a.7.7 0 0 1-1 .2c-2.6-1.6-5.9-2-9.8-1.1a.7.7 0 1 1-.3-1.4c4.2-1 7.9-.5 10.8 1.3.4.2.5.7.3 1Zm1.2-2.8a.9.9 0 0 1-1.2.3c-3-1.8-7.5-2.4-11-1.3a.9.9 0 1 1-.6-1.7c4-1.2 9-.6 12.4 1.5.4.3.6.9.4 1.2Zm.1-2.9C14.5 8.6 9 8.4 5.7 9.4a1 1 0 1 1-.6-1.9c3.8-1.1 9.9-.9 13.8 1.4a1 1 0 1 1-1 1.8Z"/></svg>
       </span>
-      <span class="label"><span class="name">Spotify</span><span class="sub">mes playlists</span></span>
+      <span class="label"><span class="name">Spotify</span><span class="sub">my playlists</span></span>
       <span class="petal-mark">✿</span>
     </a>
 
@@ -410,12 +410,12 @@
       <span class="icon github">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.1-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.5-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 4.9 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>
       </span>
-      <span class="label"><span class="name">GitHub</span><span class="sub">mes projets</span></span>
+      <span class="label"><span class="name">GitHub</span><span class="sub">my projects</span></span>
       <span class="petal-mark">✿</span>
     </a>
   </div>
 
-  <footer>fait avec ✿ pour cloedurand</footer>
+  <footer>made with ✿ for cloedurand</footer>
 </main>
 
 <script>
@@ -459,7 +459,7 @@
   function setTheme(night) {
     root.classList.toggle('night', night);
     themeToggle.textContent = night ? '☀️' : '🌙';
-    themeToggle.setAttribute('aria-label', night ? 'Passer en thème jour' : 'Passer en thème nuit');
+    themeToggle.setAttribute('aria-label', night ? 'Switch to light mode' : 'Switch to dark mode');
   }
   const prefersNight = window.matchMedia('(prefers-color-scheme: dark)').matches;
   setTheme(prefersNight);
@@ -523,7 +523,7 @@
     });
   }
 
-  // --- Ambient music (synthesized, no external file needed) ---
+// --- Ambient music (synthesized, no external file needed) ---
   const musicToggle = document.getElementById('musicToggle');
   let audioCtx = null;
   let ambientNodes = null;
@@ -571,14 +571,16 @@
     }, 900);
   }
 
-  musicToggle.addEventListener('click', () => {
-    playing = !playing;
-    musicToggle.textContent = playing ? '❚❚' : '♪';
-    musicToggle.setAttribute('aria-label', playing ? 'Mettre en pause la musique' : 'Jouer la musique d\'ambiance');
-    if (playing) startAmbient(); else stopAmbient();
-  });
+  if (musicToggle) {
+    musicToggle.addEventListener('click', () => {
+      playing = !playing;
+      musicToggle.textContent = playing ? '❚❚' : '♪';
+      musicToggle.setAttribute('aria-label', playing ? 'Pause ambient music' : 'Play ambient music');
+      if (playing) startAmbient(); else stopAmbient();
+    });
+  }
 
-  // --- Discord pseudo copy ---
+  // --- Discord username copy ---
   const discordBtn = document.getElementById('discordCopy');
   const copyFlash = document.getElementById('copyFlash');
   discordBtn.addEventListener('click', async () => {
